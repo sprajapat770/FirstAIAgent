@@ -50,6 +50,18 @@ External functions, APIs, or capabilities that agents can call to interact with 
 
 The feedback loop shows how tools can send information back to the LLM for further processing.
 
+
+different groq LLM models
+https://console.groq.com/docs/models
+
+
+
+
+
+
+
+
+
 ## 📦 Installation Requirements
 
 ### 🟢 Node.js Environment
