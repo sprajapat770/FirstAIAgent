@@ -10,7 +10,7 @@ async function callAgent() {
         messages: [
             {
                 "role": "user",
-                "content": "Explain the importance of fast language models",
+                "content": "What is Color of the sky?",
             }
         ],
         model: "llama-3.3-70b-versatile",
