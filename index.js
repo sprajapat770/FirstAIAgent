@@ -16,52 +16,11 @@ async function callAgent() {
         content: "What is current time?",
     });
 
-    const chat_completion = await groq.chat.completions.create({
-        messages: messages,
-        model: "llama-3.3-70b-versatile",
-        tools: [
-            {
-                type: "function",
-                function: {
-                    name: "getCurrentTime",
-                    description: "Get the current time",
-                    parameters: {
-                        type: "object",
-                        properties: {
-                            time: { type: "string" }
-                        }
-                    }
-                }
-            }
-        ]
-    });
-
-    messages.push(chat_completion.choices[0].message)
-    const tool_calls = chat_completion.choices[0].message.tool_calls;
-    if(!tool_calls) {
-        console.log(chat_completion.choices[0].message.content);
-        return;
-    }
-
-    for(const tool_call of tool_calls) {
-        const tool_name = tool_call.function.name;
-        const args = tool_call.function.arguments;
-        let result = '';
-        if(tool_name === "getCurrentTime") {
-            result = getCurrentTime();
-            console.log(result);
-        }
-
-        messages.push({
-            role: "tool",
-            content: result,
-            tool_call_id: tool_call.id
-        })
-
-        const chat_completion2 = await groq.chat.completions.create({
-            messages: messages,
-            model: "llama-3.3-70b-versatile",
-            tools: [
+    while(true) {
+        const chat_completion = await groq.chat.completions.create({
+                messages: messages,
+                model: "llama-3.3-70b-versatile",
+                tools: [
                 {
                     type: "function",
                     function: {
@@ -78,13 +37,28 @@ async function callAgent() {
             ]
         });
 
-        const tool_calls2 = chat_completion2.choices[0].message.tool_calls;
-        if(!tool_calls2) {
-            console.log(chat_completion2.choices[0].message.content);
-            return;
+        messages.push(chat_completion.choices[0].message)
+        const tool_calls = chat_completion.choices[0].message.tool_calls;
+        if(!tool_calls) {
+            return chat_completion.choices[0].message.content;
+            break;
         }
-        return;
-    }    
+
+        for(const tool_call of tool_calls) {
+            const tool_name = tool_call.function.name;
+            const args = tool_call.function.arguments;
+            let result = '';
+            if(tool_name === "getCurrentTime") {
+                result = getCurrentTime();
+            }
+    
+            messages.push({
+                role: "tool",
+                content: result,
+                tool_call_id: tool_call.id
+            })
+        }  
+    }
 }
 
 function getCurrentTime() {
@@ -92,4 +66,5 @@ function getCurrentTime() {
     return currentTime;
 }
 
-await callAgent();
+const result = await callAgent();
+console.log('final result : ', result);
