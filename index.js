@@ -23,6 +23,15 @@ console.log(result3.content);
 const result4 = await model.invoke([new HumanMessage("hi!")]);
 console.log(result4.content);
 
+const stream = await model.stream(messages);
+
+const chunks = [];
+for await (const chunk of stream) {
+  chunks.push(chunk);
+  console.log(`${chunk.content}|`);
+}
+
+
 // import readline from 'node:readline/promises';
 
 // import { config } from "dotenv";

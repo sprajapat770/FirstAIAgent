@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --env-file=.env index.js"
+    "start": "node --env-file=.env index.js",
+    "promot-template": "node --env-file=.env langchainPrompt.js"
   },
   "keywords": [
     "AI",
@@ -16,7 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "@langchain/core": "^0.3.62",
+    "@langchain/google-genai": "^0.2.14",
     "@langchain/groq": "^0.2.3",
+    "@langchain/openai": "^0.5.18",
     "dotenv": "^17.0.1",
     "groq-sdk": "^0.26.0",
     "langchain": "^0.3.29"
