@@ -71,11 +71,11 @@ node --version
 npm --version
 ```
 
-### 📋 Required Dependencies
+### 📋 Required Dependencies - LangChain
 ```bash
-# Core AI library (Groq SDK)
-npm install groq-sdk
-npm install dotenv
+# Core LangChain libraries
+npm i langchain @langchain/core
+npm i @langchain/groq
 ```
 
 ### 🔧 Development Tools
@@ -101,13 +101,15 @@ cd FirstAIAgent
 npm init -y
 ```
 
-### 2️⃣ **Install Dependencies**
+### 2️⃣ **Install LangChain Dependencies**
 ```bash
 # Install from package.json
 npm install
 
-# Or install manually
-npm install groq-sdk dotenv
+# Or install LangChain packages manually
+npm i langchain @langchain/core
+npm i @langchain/groq
+npm install dotenv
 ```
 
 ### 3️⃣ **API Keys Configuration**
@@ -163,8 +165,10 @@ FirstAIAgent/
 node --version
 npm --version
 
-# Test package imports
-node -e "const Groq = require('groq-sdk'); console.log('✅ Groq SDK installed')"
+# Test LangChain package imports
+node -e "import('@langchain/groq').then(() => console.log('✅ LangChain Groq installed'))"
+node -e "import('@langchain/core').then(() => console.log('✅ LangChain Core installed'))"
+node -e "import('langchain').then(() => console.log('✅ LangChain installed'))"
 
 # Test environment variables
 node -e "require('dotenv').config(); console.log(process.env.GROQ_API_KEY ? '✅ Groq API key loaded' : '❌ Missing Groq API key')"
@@ -183,8 +187,9 @@ ssh -T git@github.com-account2
 git clone git@github.com:sprajapat770/FirstAIAgent.git
 cd FirstAIAgent
 
-# 2. Install dependencies
-npm install
+# 2. Install LangChain dependencies
+npm i langchain @langchain/core
+npm i @langchain/groq
 
 # 3. Configure API keys
 cp env.dist .env
@@ -196,8 +201,9 @@ node index.js
 
 ### 🔧 **Current Implementation**
 The project currently includes:
-- **Groq SDK** integration with **Llama 3.3 70B Versatile** model
-- Simple agent that explains the importance of fast language models
+- **LangChain** integration with **ChatGroq** from `@langchain/groq`
+- **Llama 3.3 70B Versatile** model implementation
+- **SystemMessage** and **HumanMessage** from `@langchain/core/messages`
 - Environment variable configuration for API keys
 - ES6 module support (`"type": "module"` in package.json)
 
@@ -207,4 +213,5 @@ The project currently includes:
 - **Permission denied (publickey)**: Check SSH key configuration
 - **Module not found**: Run `npm install` to install dependencies
 - **API key errors**: Verify `.env` file and API key validity
-- **Node version errors**: Ensure Node.js 16+ is installed
+- **Node version errors**: Ensure Node.js 18+ is installed
+- **LangChain import errors**: Ensure all LangChain packages are installed correctly
